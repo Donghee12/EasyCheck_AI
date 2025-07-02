@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 건강 진단 - 외과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='surgical.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- ✅ 로딩 애니메이션 -->
+    <section class="loading" id="loading" style="display: none;">
+        <h1 class="loading-title">AI가 이미지를 분석 중입니다...</h1>
+        <div class="progress-bar" aria-hidden="true">
+            <span class="progress-bar-gauge"></span>
+        </div>
+    </section>
+
+    <!-- ✅ 진단 카드 -->
+    <div class="card" id="form-container">
+        <h2>🩻 AI 건강 진단 (외과)</h2>
+        <p class="guide">
+            피부에 상처나 이상이 있는 부위를 촬영해 업로드해주세요.<br>
+            <span class="warning">※ 얼굴 등 개인 정보가 보이는 사진은 피해주세요</span>
+        </p>
+
+        <form method="POST" enctype="multipart/form-data" id="surgicalForm">
+            <label for="image-upload" class="upload-label">📷 이미지 선택하기</label>
+            <input type="file" name="image" id="image-upload" accept="image/*" onchange="previewImage(event)" required>
+
+            <div class="preview-container" id="preview-container" style="display: none;">
+                <p class="preview-title">업로드된 이미지</p>
+                <img id="image-preview" alt="업로드된 이미지 미리보기">
+            </div>
+
+            <button type="submit">예측하기</button>
+        </form>
+
+        {% if error %}
+        <div class="error-box">
+            <p style="color: red;">{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if result_image %}
+        <h3>예측 결과</h3>
+        <img src="{{ url_for('static', filename='uploads/result_image.jpg') }}" alt="예측 결과" style="max-width: 100%;">
+        {% endif %}
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const previewContainer = document.getElementById('preview-container');
+            const previewImage = document.getElementById('image-preview');
+
+            if (file) {
+                previewImage.src = URL.createObjectURL(file);
+                previewContainer.style.display = 'block';
+            } else {
+                previewContainer.style.display = 'none';
+                previewImage.src = '';
+            }
+        }
+
+        // ✅ 제출 시 로딩 애니메이션 표시
+        const form = document.getElementById("surgicalForm");
+        form.addEventListener("submit", function () {
+            document.getElementById("form-container").style.display = "none";
+            document.getElementById("loading").style.display = "flex";
+        });
+    </script>
+</body>
+</html>

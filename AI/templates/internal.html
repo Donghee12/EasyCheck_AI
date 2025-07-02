@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 건강 진단 - 내과</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='internal.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <!-- 로딩 애니메이션 (초기에는 숨김) -->
+  <section class="loading" id="loading" style="display: none;">
+    <h1 class="loading-title">AI가 증상을 분석 중입니다...</h1>
+    <div class="progress-bar" aria-hidden="true">
+      <span class="progress-bar-gauge"></span>
+    </div>
+  </section>
+
+  <!-- 진단 입력 UI -->
+  <div class="card" id="form-container">
+    <h2>🤖 AI 건강 진단 (내과)</h2>
+    <p class="guide">
+      증상을 한국어 문장으로 입력하세요 (예: 두통이 있고 속이 메스꺼워요)<br>
+      <span class="warning">※ 문장 끝에 <strong>마침표(.)는 입력하지 마세요</strong></span>
+    </p>
+    <form id="symptomForm" method="POST" action="{{ url_for('internal') }}">
+      <input type="text" name="symptoms" placeholder="예: 복통이 있고 구토를 했어요" required>
+      <button type="submit">예측하기</button>
+    </form>
+  </div>
+
+  <!-- JS로 로딩 표시 -->
+  <script>
+    const form = document.getElementById("symptomForm");
+    form.addEventListener("submit", function () {
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("loading").style.display = "flex";
+    });
+  </script>
+
+</body>
+</html>

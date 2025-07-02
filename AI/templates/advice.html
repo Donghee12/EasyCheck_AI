@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ disease }} 예방법</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🩺 {{ disease }} 예방 및 대처 정보</h2>
+        <div class="advice-box">
+            {{ content | safe }}
+        </div>
+        <a class="btn" href="{{ url_for('index') }}">🏠 홈으로 돌아가기</a>
+    </div>
+</body>
+</html>

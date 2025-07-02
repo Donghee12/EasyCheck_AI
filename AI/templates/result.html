@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>진단 결과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🩺 AI 건강 진단 결과</h2>
+
+        <!-- 예측된 이미지를 표시 (외과 진단일 때만) -->
+        {% if diagnosis_type == "외과" %}
+        <div class="highlight-box">
+            <h3>예측된 {{ diagnosis_type }} 진단 이미지</h3>
+            <img src="{{ result_image }}" alt="예측된 이미지">
+        </div>
+        {% endif %}
+
+        <!-- 가장 가능성 높은 질병 -->
+        <div class="highlight-box">
+            <p><strong>✔️ 가장 가능성 높은 질병:</strong> {{ predicted_disease }} ({{ confidence }}%)</p>
+        </div>
+
+        {% if others %}
+        <div class="others-box">
+            <p><strong>📋 기타 가능성 있는 질병:</strong></p>
+            <ul>
+                {% for disease, prob in others %}
+                <li>{{ disease }} — {{ prob }}%</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <hr>
+
+        <!-- Gemini에서 받은 치료 방법 및 예방 수칙 -->
+        <div class="advice-box">
+            <h3>📝 치료 방법 및 예방 수칙</h3>
+            <p>{{ result | safe }}</p>
+        </div>
+
+
+        <a class="btn" href="{{ url_for('index') }}">🏠 홈으로 돌아가기</a>
+        <a class="btn btn-secondary" href="{{ url_for('detailed_advice', disease=predicted_disease) }}">🩺 더 자세한 예방법 확인</a>
+        
+    </div>
+</body>
+</html>

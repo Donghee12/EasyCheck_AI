@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 건강 진단 서비스</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Hero 섹션 -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <h1>AI 건강 진단 챗봇</h1>
+        <p>AI가 증상과 이미지를 분석해<br>내과와 외과 진단을 도와드립니다</p>
+        <a href="#diagnosis" class="cta-button">지금 진단받기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 주요 기능 -->
+  <section class="feature">
+    <h2>Gemini AI가 이렇게 진단합니다</h2>
+    <div class="features">
+  
+      <!-- 내과 진단 -->
+      <a href="{{ url_for('internal') }}" class="feature-box" data-aos="fade-up" data-aos-delay="100">
+        <img src="{{ url_for('static', filename='internal.png') }}" alt="내과 진단" class="feature-icon"/>
+        <h3>내과 진단 <span class="label">(텍스트 기반)</span></h3>
+        <p>
+          사용자가 입력한 증상을 자연어 처리하고<br>
+          학습된 AI 모델이 내과 질환을 예측합니다.<br>
+          <strong>증상 입력 → 벡터 변환 → 병명 예측</strong>
+        </p>
+      </a>
+  
+      <!-- 외과 진단 -->
+      <a href="{{ url_for('surgical') }}" class="feature-box" data-aos="fade-up" data-aos-delay="300">
+        <img src="{{ url_for('static', filename='surgical.png') }}" alt="외과 진단" class="feature-icon"/>
+        <h3>외과 진단 <span class="label">(이미지 기반)</span></h3>
+        <p>
+          피부, 상처, 병변 등의 이미지를 업로드하면<br>
+          CNN 기반 모델이 외과적 질환을 분류합니다.<br>
+          <strong>이미지 업로드 → 전처리 → 진단</strong>
+        </p>
+      </a>
+  
+    </div>
+  </section>
+  
+  
+
+  <!-- 진단 바로가기 -->
+  <section class="quick-links" id="diagnosis">
+    <h2>📌 진단 바로가기</h2>
+    <div class="link-buttons">
+      <a href="{{ url_for('internal') }}" class="main-button">💬 내과 진단</a>
+      <a href="{{ url_for('surgical') }}" class="main-button">📷 외과 진단</a>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>&copy; 2025 AI Health Service | Gemini 기반 맞춤형 의료 챗봇</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+</body>
+</html>
