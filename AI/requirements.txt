@@ -1,0 +1,8 @@
+flask
+tensorflow
+numpy
+pandas
+python-dotenv
+pillow
+ultralytics
+google-generativeai
